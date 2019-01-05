@@ -6,7 +6,7 @@ from scrapy.utils.misc import load_object
 from .interfaces import IPoller, IEggStorage, ISpiderScheduler
 from six.moves.urllib.parse import urlparse
 
-from scrapyd.logger import LiveLogger,staticLogger
+from scrapyd.logger import staticLogger
 
 class Root(resource.Resource):
 
@@ -23,7 +23,6 @@ class Root(resource.Resource):
         
 
         if logsdir:
-            self.putChild(b'livelog', LiveLogger())
             self.putChild(b'logs', staticLogger(logsdir.encode('ascii', 'ignore'), 'text/plain'))
         if local_items:
             self.putChild(b'items', static.File(itemsdir, 'text/plain'))
